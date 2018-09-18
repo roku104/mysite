@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block body %}
+        <!--新規作成ボタン-->
+        {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <a href="{% url 'create' %}" class="btn btn-block btn-outline-secondary">New</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!--新規作成ボタンここまで-->
+        <!-- 記事ここから -->
+        {% for blog in blogs %}
+        <div class="container post">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-preview">
+                        <h2 class="post-title">
+                            {{ blog.title }}
+                        </h2>
+                        <p>{{ blog.created_at|date:"Y-m-d" }} {{ blog.category }}
+                        <a href="{% url 'detail' blog.pk %}" class="btn btn-outline-secondary">Read more</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        {% endfor %}
+        <!--記事ここまで-->
+
+        <!--前へ-->
+        {% if page_obj.has_previous %}
+        <div class="container">
+            <div class="paging">
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary">前へ</a>
+            </div>
+        </div>
+                {% endif %}
+                <!--次へ-->
+        <div class="container">
+            <div class="paging">
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary">次へ</a>
+            </div>
+        </div>
+        {% endif %}
+
+{% endblock %}

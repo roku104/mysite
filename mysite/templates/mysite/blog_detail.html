@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+        {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto mb-4">
+                    <a href="{% url 'update' blog.pk %}" class="btn btn-outline-secondary">編集</a>
+                    <a href="{% url 'delete' blog.pk %}" class="btn btn-danger">削除</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 mx-auto" style="font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,sans-serif;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>{{ blog.title }}</h1>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="card-blockquote">
+                                <p style="font-size: 18px">{{ blog.get_content_as_markdown }}</p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

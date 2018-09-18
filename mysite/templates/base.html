@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <!-- fontawesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        <title>Note to self</title>
+    </head>
+    <body>
+        <!-- ナビバーここから -->
+        <div class="container" style="border-bottom: 1px solid #333">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                        <!--カテゴリ-->
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Category</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                            {% for category in category_list %}
+                            <a class="dropdown-item" href="{% url 'category' category.pk %}">{{ category }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    </ul>
+                    <!--検索-->
+                    <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'index' %}">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" name="keyword">
+                    </form>
+                    <!--ログアウト-->
+                    {% if user.is_authenticated %}
+                    <div class="logout">
+                        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt btn btn-outline-secondary"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+        <!-- ナビバーここまで -->
+        <!-- サイトタイトルここから -->
+        <div class="container title">
+            <h1 class="animated fadeIn"><a href="{% url 'index' %}">Note to self</a></h1>
+        </div>
+        <!-- サイトタイトルここまで -->
+        <!-- フラッシュメッセージ -->
+        {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <ul class="list-unstyled">
+                        {% for message in messages %}
+                        <li class="bg-{%if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert">
+                        {{message}}
+                            <button type="button" class="close" aria-label="Close" data-dismiss="alert">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!--フラッシュメッセージここまで-->
+
+        {% block body %}
+        {%  endblock %}
+
+        <footer>
+            <p>&#169; 2018 Note to self ALL RIGHTS RESERVED.</p>
+        </footer>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>
