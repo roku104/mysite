@@ -18,7 +18,6 @@ class Blog(models.Model):
     title = models.CharField(max_length=250, verbose_name='タイトル')
     content = models.TextField(verbose_name='本文')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='作成日')
-    image = models.ImageField(upload_to='media/', blank=True)
     category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.PROTECT)
 
     def get_content_as_markdown(self):

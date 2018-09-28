@@ -66,3 +66,7 @@ class BlogCategoryView(generic.ListView):
         category = get_object_or_404(Category, pk=self.kwargs['pk'])
         queryset = Blog.objects.order_by('-created_at').filter(category=category)
         return queryset
+
+
+class BlogTemplateView(generic.TemplateView):
+    model = Blog

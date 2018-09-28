@@ -22,6 +22,7 @@ from mysite.views import BlogCrateView
 from mysite.views import BlogDeleteView
 from mysite.views import BlogUpdateView
 from mysite.views import BlogCategoryView
+from mysite.views import BlogTemplateView
 
 from django.contrib.auth.views import LogoutView
 
@@ -35,4 +36,5 @@ urlpatterns = [
     path('<int:pk>/update', BlogUpdateView.as_view(), name='update'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('category/<int:pk>', BlogCategoryView.as_view(), name='category'),
+    path('about', BlogTemplateView.as_view(template_name='blog_about.html'), name='about'),
 ]
