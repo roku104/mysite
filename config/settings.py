@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # 追記
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -48,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# 'whitenoise.middleware.WhiteNoiseMiddleware', 追記
 
 ROOT_URLCONF = 'config.urls'
 
@@ -127,13 +127,13 @@ STATICFILES_DIRS = (
     os.path.normpath(os.path.join(BASE_DIR, "static")),
 )
 
-DEBUG = False
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
-if not DEBUG:
-    import django_heroku
-    django_heroku.settings(locals())
+# DEBUG = False
+#
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
+#
+# if not DEBUG:
+#     import django_heroku
+#     django_heroku.settings(locals())
